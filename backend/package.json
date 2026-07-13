@@ -1,0 +1,19 @@
+{
+  "name": "physiocare-kiosk-server",
+  "version": "1.0.0",
+  "description": "Backend API server for PhysioCare AI Kiosk",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "sequelize": "^6.37.3",
+    "mysql2": "^3.10.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "qrcode": "^1.5.4"
+  }
+}

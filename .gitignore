@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+client/node_modules/
+Frontend/node_modules/
+
+# Environment files
+.env
+.env.*
+backend/.env
+Frontend/.env
+client/.env
+
+# Logs and diagnostics
+*.log
+*.out
+*.err
+backend/err.txt
+backend/log.txt
+backend/test_log.txt
+backend/test_run.log
+backend/test_run_utf8.log
+
+# Build output
+dist/
+build/
+coverage/
+frontend/dist/
+Frontend/dist/
+backend/dist/
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Git metadata that should never be nested
+.git/
