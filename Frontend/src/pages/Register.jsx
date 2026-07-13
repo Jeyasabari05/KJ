@@ -83,7 +83,7 @@ export default function Register() {
     const districts = ['Chennai', 'Coimbatore', 'Madurai', 'Salem', 'Tiruchirappalli', 'Thanjavur', 'Tiruvannamalai', 'Dharmapuri', 'Nilgiris'];
 
     return (
-        <div className="max-w-2xl mx-auto my-6">
+        <div className="max-w-2xl lg:max-w-6xl mx-auto my-6">
 
             {registeredPatient ? (
                 /* ── Success / Health Card ───────────────────────── */
@@ -168,139 +168,145 @@ export default function Register() {
                         </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
+                    <form onSubmit={handleSubmit} className="p-6 sm:p-8 lg:p-10">
 
-                        {/* Part A: Primary Identification */}
-                        <div className="space-y-4">
-                            <h3 className={sectionHeadCls}>
-                                <ShieldCheck size={14} />
-                                Part A: Primary Identification
-                            </h3>
+                        {/* Landscape 2-panel layout on lg+, stacked on mobile */}
+                        <div className="flex flex-col lg:flex-row lg:gap-10">
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label className={labelCls}>{t('name')} *</label>
-                                    <input type="text" required placeholder="e.g. Murugan G."
-                                        value={name} onChange={(e) => setName(e.target.value)} className={inputCls} />
-                                </div>
+                            {/* ── LEFT PANEL: Part A + Part C ── */}
+                            <div className="flex-1 space-y-6">
 
-                                <div className="grid grid-cols-2 gap-2">
-                                    <div>
-                                        <label className={labelCls}>{t('age')} *</label>
-                                        <input type="number" required min={1} max={120} placeholder="e.g. 58"
-                                            value={age} onChange={(e) => setAge(e.target.value)} className={inputCls} />
+                                {/* Part A: Primary Identification */}
+                                <div className="space-y-4">
+                                    <h3 className={sectionHeadCls}>
+                                        <ShieldCheck size={14} />
+                                        Part A: Primary Identification
+                                    </h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className={labelCls}>{t('name')} *</label>
+                                            <input type="text" required placeholder="e.g. Murugan G."
+                                                value={name} onChange={(e) => setName(e.target.value)} className={inputCls} />
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>{t('phone')} *</label>
+                                            <input type="tel" required pattern="[0-9]{10}" placeholder="10-digit mobile number"
+                                                value={mobile} onChange={(e) => setMobile(e.target.value)} className={inputCls} />
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>{t('age')} *</label>
+                                            <input type="number" required min={1} max={120} placeholder="e.g. 58"
+                                                value={age} onChange={(e) => setAge(e.target.value)} className={inputCls} />
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>{t('gender')} *</label>
+                                            <select value={gender} onChange={(e) => setGender(e.target.value)} className={selectCls}>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                        <div className="sm:col-span-2">
+                                            <label className={labelCls}>{t('abhaID')} *</label>
+                                            <input type="text" required placeholder="e.g. 14-digit ABHA number"
+                                                value={abhaId} onChange={(e) => setAbhaId(e.target.value)} className={inputCls} />
+                                            <span className="text-[10px] text-gray-400 dark:text-gray-500 mt-1 block">Or type e-Sevai lookup code</span>
+                                        </div>
                                     </div>
+                                </div>
+
+                                {/* Part C: Clinical Details & Emergency */}
+                                <div className="space-y-4">
+                                    <h3 className={sectionHeadCls}>
+                                        <ShieldCheck size={14} />
+                                        Part C: Clinical Details &amp; Emergency Contacts
+                                    </h3>
                                     <div>
-                                        <label className={labelCls}>{t('gender')} *</label>
-                                        <select value={gender} onChange={(e) => setGender(e.target.value)} className={selectCls}>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Other</option>
-                                        </select>
+                                        <label className={labelCls}>Medical Anamnesis / History</label>
+                                        <textarea
+                                            placeholder="e.g. History of chronic back pain 3 years. Post-stroke left-hemiparesis rehabilitation. Hypertension."
+                                            rows={3}
+                                            value={history}
+                                            onChange={(e) => setHistory(e.target.value)}
+                                            className={inputCls}
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                        <div>
+                                            <label className={labelCls}>Emergency Contact Name</label>
+                                            <input type="text" placeholder="e.g. Ramesh M."
+                                                value={emergencyName} onChange={(e) => setEmergencyName(e.target.value)} className={inputCls} />
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>Relationship</label>
+                                            <input type="text" placeholder="e.g. Son / Daughter"
+                                                value={emergencyRelation} onChange={(e) => setEmergencyRelation(e.target.value)} className={inputCls} />
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>Emergency Mobile</label>
+                                            <input type="tel" placeholder="10-digit number"
+                                                value={emergencyPhone} onChange={(e) => setEmergencyPhone(e.target.value)} className={inputCls} />
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <label className={labelCls}>{t('abhaID')} *</label>
-                                    <input type="text" required placeholder="e.g. 14-digit ABHA number"
-                                        value={abhaId} onChange={(e) => setAbhaId(e.target.value)} className={inputCls} />
-                                    <span className="text-[10px] text-gray-400 dark:text-gray-500 mt-1 block">Or type e-Sevai lookup code</span>
-                                </div>
-
-                                <div>
-                                    <label className={labelCls}>{t('phone')} *</label>
-                                    <input type="tel" required pattern="[0-9]{10}" placeholder="10-digit mobile number"
-                                        value={mobile} onChange={(e) => setMobile(e.target.value)} className={inputCls} />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Part B: Regional Demographics */}
-                        <div className="space-y-4">
-                            <h3 className={sectionHeadCls}>
-                                <ShieldCheck size={14} />
-                                Part B: Regional Demographics
-                            </h3>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label className={labelCls}>{t('district')} *</label>
-                                    <select value={district} onChange={(e) => setDistrict(e.target.value)} className={selectCls}>
-                                        {districts.map((d, i) => <option key={i} value={d}>{d}</option>)}
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className={labelCls}>{t('village')} *</label>
-                                    <input type="text" required placeholder="e.g. Melagiri Tribal B"
-                                        value={village} onChange={(e) => setVillage(e.target.value)} className={inputCls} />
-                                </div>
-
-                                <div>
-                                    <label className={labelCls}>Occupation</label>
-                                    <input type="text" placeholder="e.g. Agriculture / Weaver"
-                                        value={occupation} onChange={(e) => setOccupation(e.target.value)} className={inputCls} />
-                                </div>
-
-                                <div>
-                                    <label className={labelCls}>Disability Status</label>
-                                    <select value={disability} onChange={(e) => setDisability(e.target.value)} className={selectCls}>
-                                        <option>None</option>
-                                        <option>Visual Impairment</option>
-                                        <option>Locomotor Disability</option>
-                                        <option>Hearing Impairment</option>
-                                        <option>Cognitive Support</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Part C: Clinical Details & Emergency */}
-                        <div className="space-y-4">
-                            <h3 className={sectionHeadCls}>
-                                <ShieldCheck size={14} />
-                                Part C: Clinical Details &amp; Emergency Contacts
-                            </h3>
-
-                            <div>
-                                <label className={labelCls}>Medical Anamnesis / History</label>
-                                <textarea
-                                    placeholder="e.g. History of chronic back pain 3 years. Post-stroke left-hemiparesis rehabilitation. Hypertension."
-                                    rows={2}
-                                    value={history}
-                                    onChange={(e) => setHistory(e.target.value)}
-                                    className={inputCls}
-                                />
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <div>
-                                    <label className={labelCls}>Emergency Contact Name</label>
-                                    <input type="text" placeholder="e.g. Ramesh M."
-                                        value={emergencyName} onChange={(e) => setEmergencyName(e.target.value)} className={inputCls} />
-                                </div>
-                                <div>
-                                    <label className={labelCls}>Relationship</label>
-                                    <input type="text" placeholder="e.g. Son / Daughter"
-                                        value={emergencyRelation} onChange={(e) => setEmergencyRelation(e.target.value)} className={inputCls} />
-                                </div>
-                                <div>
-                                    <label className={labelCls}>Emergency Mobile</label>
-                                    <input type="tel" placeholder="10-digit number"
-                                        value={emergencyPhone} onChange={(e) => setEmergencyPhone(e.target.value)} className={inputCls} />
-                                </div>
-                            </div>
-                        </div>
+                            {/* ── Vertical Divider (desktop only) ── */}
+                            <div className="hidden lg:block w-px bg-gray-200 dark:bg-slate-700 self-stretch mx-2" />
 
-                        {/* Submit */}
-                        <div className="flex pt-2">
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full bg-govBlue hover:bg-govBlue-dark text-white font-extrabold py-3.5 rounded-lg transition-transform active:scale-95 flex items-center justify-center gap-2 shadow disabled:opacity-60"
-                            >
-                                {loading ? 'Processing Citizen Record...' : 'Verify ABHA & Save Patient Card'}
-                            </button>
+                            {/* ── RIGHT PANEL: Part B + Submit ── */}
+                            <div className="flex-1 space-y-6 mt-6 lg:mt-0">
+
+                                {/* Part B: Regional Demographics */}
+                                <div className="space-y-4">
+                                    <h3 className={sectionHeadCls}>
+                                        <ShieldCheck size={14} />
+                                        Part B: Regional Demographics
+                                    </h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className={labelCls}>{t('district')} *</label>
+                                            <select value={district} onChange={(e) => setDistrict(e.target.value)} className={selectCls}>
+                                                {districts.map((d, i) => <option key={i} value={d}>{d}</option>)}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>{t('village')} *</label>
+                                            <input type="text" required placeholder="e.g. Melagiri Tribal B"
+                                                value={village} onChange={(e) => setVillage(e.target.value)} className={inputCls} />
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>Occupation</label>
+                                            <input type="text" placeholder="e.g. Agriculture / Weaver"
+                                                value={occupation} onChange={(e) => setOccupation(e.target.value)} className={inputCls} />
+                                        </div>
+                                        <div>
+                                            <label className={labelCls}>Disability Status</label>
+                                            <select value={disability} onChange={(e) => setDisability(e.target.value)} className={selectCls}>
+                                                <option>None</option>
+                                                <option>Visual Impairment</option>
+                                                <option>Locomotor Disability</option>
+                                                <option>Hearing Impairment</option>
+                                                <option>Cognitive Support</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Submit — anchored at bottom of right panel */}
+                                <div className="lg:pt-4">
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full bg-govBlue hover:bg-govBlue-dark text-white font-extrabold py-4 rounded-xl transition-transform active:scale-95 flex items-center justify-center gap-2 shadow-lg disabled:opacity-60 text-base tracking-wide"
+                                    >
+                                        {loading ? 'Processing Citizen Record...' : 'Verify ABHA & Save Patient Card'}
+                                    </button>
+                                    <p className="text-[10px] text-center text-gray-400 dark:text-gray-500 mt-2 font-semibold">All data encrypted · ABHA verified · NHM Compliant</p>
+                                </div>
+
+                            </div>
                         </div>
 
                     </form>
